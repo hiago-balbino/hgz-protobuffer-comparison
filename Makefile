@@ -24,6 +24,10 @@ docker-down:
 docker-ps:
 	cd docker; docker-compose ps
 
+## proto-bench: 				run all benchmark tests to protocol buffer
+proto-bench:
+	cd protobuffer; go test ./... -bench=.
+
 ## help:					show this help.
 help:
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
