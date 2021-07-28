@@ -1,4 +1,4 @@
-.PHONY: compile-protoc-win compile-protoc-macos docker-build-up docker-up docker-down docker-ps
+.PHONY: compile-protoc-win compile-protoc-macos docker-build-up docker-up docker-down docker-ps proto-bench json-bench
 
 ## compile-protoc-win:			generate Go code on Windows from proto file
 compile-protoc-win:
@@ -24,9 +24,13 @@ docker-down:
 docker-ps:
 	cd docker; docker-compose ps
 
-## proto-bench: 				run all benchmark tests to protocol buffer
+## proto-bench: 				run all benchmark tests to protocol buffer format
 proto-bench:
-	cd protobuffer; go test ./... -bench=.
+	cd protobuffer; go test ./... -bench=. -benchtime=10s
+
+## json-bench: 				run all benchmark tests to json format
+json-bench:
+	cd json; go test ./... -bench=. -benchtime=10s
 
 ## help:					show this help.
 help:
