@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func BenchmarkMarshalAddressBook(b *testing.B) {
+func BenchmarkMarshalJSON(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		addressBook := CreateAddressBook(int32(i))
 
@@ -17,7 +17,7 @@ func BenchmarkMarshalAddressBook(b *testing.B) {
 	}
 }
 
-func BenchmarkUnmarshalAddressBook(b *testing.B) {
+func BenchmarkUnmarshalJSON(b *testing.B) {
 	data, err := ioutil.ReadFile("../../../files/jsonfile.txt")
 	if err != nil {
 		b.Fatal("error to read file")

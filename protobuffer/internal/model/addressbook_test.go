@@ -7,7 +7,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func BenchmarkMarshalAddressBook(b *testing.B) {
+func BenchmarkMarshalProtobuf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		addressBook := CreateAddressBook(int32(i))
 
@@ -18,7 +18,7 @@ func BenchmarkMarshalAddressBook(b *testing.B) {
 	}
 }
 
-func BenchmarkUnmarshalAddressBook(b *testing.B) {
+func BenchmarkUnmarshalProtobuf(b *testing.B) {
 	data, err := ioutil.ReadFile("../../../files/protofile.txt")
 	if err != nil {
 		b.Fatal("error to read file")
