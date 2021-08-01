@@ -1,3 +1,7 @@
+![continuous-integration](https://github.com/hiago-balbino/hgz-protobuffer-comparison/actions/workflows/continuous-integration.yml/badge.svg?branch=master)
+![continuous-integration](https://github.com/hiago-balbino/hgz-protobuffer-comparison/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)
+---
+
 > # **Comparison between Protocol Buffer & JSON**
 
 Sample project to compare Protocol Buffer versus JSON.
