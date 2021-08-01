@@ -4,9 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hiago-balbino/hgz-protobuffer-comparison/json/internal/model"
-
 	"github.com/hiago-balbino/hgz-protobuffer-comparison/json/internal/cache"
+	"github.com/hiago-balbino/hgz-protobuffer-comparison/json/internal/model"
 )
 
 func main() {
