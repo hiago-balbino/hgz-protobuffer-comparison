@@ -11,14 +11,14 @@ import (
 
 const keyPattern = "proto#book#{%d}"
 
-// CacheRepository is a struct that contains cache client to execute commands
-type CacheRepository struct {
+// Repository is a struct that contains cache client to execute commands
+type Repository struct {
 	client *redis.Client
 }
 
 // NewCacheRepository is a constructor to create a new instance of CacheRepository
-func NewCacheRepository(addr string) CacheRepository {
-	return CacheRepository{
+func NewCacheRepository(addr string) Repository {
+	return Repository{
 		client: redis.NewClient(&redis.Options{
 			Addr: addr,
 			DB:   0,
@@ -27,7 +27,7 @@ func NewCacheRepository(addr string) CacheRepository {
 }
 
 // Set is a function to set values into cache
-func (c CacheRepository) Set(ctx context.Context, addressBook *model.AddressBook) error {
+func (c Repository) Set(ctx context.Context, addressBook *model.AddressBook) error {
 	key := fmt.Sprintf(keyPattern, addressBook.GetPeople()[0].GetId())
 
 	addressBookBytes, err := proto.Marshal(addressBook)
@@ -39,7 +39,7 @@ func (c CacheRepository) Set(ctx context.Context, addressBook *model.AddressBook
 }
 
 // Get is a function to get values from cache
-func (c CacheRepository) Get(ctx context.Context, id int32) (*model.AddressBook, error) {
+func (c Repository) Get(ctx context.Context, id int32) (*model.AddressBook, error) {
 	key := fmt.Sprintf(keyPattern, id)
 	data, err := c.client.Get(ctx, key).Bytes()
 	if err != nil {

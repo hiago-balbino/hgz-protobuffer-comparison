@@ -16,7 +16,7 @@ func main() {
 	fetch(ctx, cacheRepository)
 }
 
-func insert(ctx context.Context, cacheRepository cache.CacheRepository) {
+func insert(ctx context.Context, cacheRepository cache.Repository) {
 	for id := int32(1); id <= 10000; id++ {
 		addressBook := model.CreateAddressBook(id)
 
@@ -30,7 +30,7 @@ func insert(ctx context.Context, cacheRepository cache.CacheRepository) {
 	fmt.Println("finished insertion")
 }
 
-func fetch(ctx context.Context, cacheRepository cache.CacheRepository) {
+func fetch(ctx context.Context, cacheRepository cache.Repository) {
 	for id := int32(1); id <= 10000; id++ {
 		addressBook, err := cacheRepository.Get(ctx, id)
 		if err != nil {
