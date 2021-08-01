@@ -1,36 +1,63 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  benchmark-json-test:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          repository: hiago-balbino/hgz-protobuffer-comparison
+          path: ./.github/actions/hgz-protobuffer-comparison
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Run JSON benchmark tests
+        run: cd ./.github/actions/hgz-protobuffer-comparison && make json-bench
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+  benchmark-protobuf-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          repository: hiago-balbino/hgz-protobuffer-comparison
+          path: ./.github/actions/hgz-protobuffer-comparison
+
+      - name: Run Protocol Buffer benchmark tests
+        run: cd ./.github/actions/hgz-protobuffer-comparison && make proto-bench
+
+  static-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          repository: hiago-balbino/hgz-protobuffer-comparison
+          path: ./.github/actions/hgz-protobuffer-comparison
+
+      - name: Install Static Check on JSON project
+        run: cd ./.github/actions/hgz-protobuffer-comparison && cd json && go install honnef.co/go/tools/cmd/staticcheck@latest
+
+      - name: Install Static Check on Protobuffer project
+        run: cd ./.github/actions/hgz-protobuffer-comparison && cd protobuffer && go install honnef.co/go/tools/cmd/staticcheck@latest
+
+      - name: Run Static Check on JSON project
+        run: cd ./.github/actions/hgz-protobuffer-comparison && cd json && staticcheck ./...
+
+      - name: Run Static Check on Protobuffer project
+        run: cd ./.github/actions/hgz-protobuffer-comparison && cd protobuffer && staticcheck ./...
