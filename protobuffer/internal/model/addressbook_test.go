@@ -1,7 +1,7 @@
 package model
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"google.golang.org/protobuf/proto"
@@ -19,7 +19,7 @@ func BenchmarkMarshalProtobuf(b *testing.B) {
 }
 
 func BenchmarkUnmarshalProtobuf(b *testing.B) {
-	data, err := ioutil.ReadFile("../../../files/protofile.txt")
+	data, err := os.ReadFile("../../../files/protofile.txt")
 	if err != nil {
 		b.Fatal("error to read file")
 	}

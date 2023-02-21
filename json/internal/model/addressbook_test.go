@@ -2,7 +2,7 @@ package model
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 	"testing"
 )
 
@@ -18,7 +18,7 @@ func BenchmarkMarshalJSON(b *testing.B) {
 }
 
 func BenchmarkUnmarshalJSON(b *testing.B) {
-	data, err := ioutil.ReadFile("../../../files/jsonfile.txt")
+	data, err := os.ReadFile("../../../files/jsonfile.txt")
 	if err != nil {
 		b.Fatal("error to read file")
 	}

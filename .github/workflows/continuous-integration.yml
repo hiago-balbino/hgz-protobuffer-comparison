@@ -1,12 +1,7 @@
 name: CI
+run-name: ${{ github.actor }} triggered the CI pipe
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-  workflow_dispatch:
+on: [push]
 
 jobs:
   benchmark-json-test:
@@ -14,7 +9,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: hiago-balbino/hgz-protobuffer-comparison
           path: ./.github/actions/hgz-protobuffer-comparison
@@ -27,7 +22,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: hiago-balbino/hgz-protobuffer-comparison
           path: ./.github/actions/hgz-protobuffer-comparison
@@ -40,12 +35,13 @@ jobs:
 
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
-          go-version: 1.16
+          go-version: 1.20.1
+          check-latest: true
 
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: hiago-balbino/hgz-protobuffer-comparison
           path: ./.github/actions/hgz-protobuffer-comparison
